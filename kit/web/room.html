@@ -7,11 +7,11 @@
 <style>
 /* Same system as index.html. Node colours = identity (match the LEDs); cyan = the estimate of you;
    amber = calibration in progress. Stage 1920x1080, scaled. */
-@font-face { font-family: "Inter"; src: url(assets/fonts/inter-500.woff2) format("woff2"); font-weight: 500; }
-@font-face { font-family: "Inter"; src: url(assets/fonts/inter-700.woff2) format("woff2"); font-weight: 700; }
-@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/jbmono-400.woff2) format("woff2"); font-weight: 400; }
-@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/jbmono-600.woff2) format("woff2"); font-weight: 600; }
-:root { --ground:#0b0e19; --panel:rgba(18,23,40,.82); --line:rgba(160,175,210,.16); --ink:#eef1f8; --ink-2:#9aa3b8; --ink-3:#5d6680; --wifi:#38e1ff; --test:#ffb547; }
+@font-face { font-family: "Inter"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 500; }
+@font-face { font-family: "Inter"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 700; }
+@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 400; }
+@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 600; }
+:root { --ground:#0b0e19; --panel:rgba(18,23,40,.82); --line:rgba(160,175,210,.16); --ink:#eef1f8; --ink-2:#9aa3b8; --ink-3:#5d6680; --wifi:#BE65E6; --test:#ffb547; }
 * { box-sizing:border-box; margin:0; padding:0; }
 html,body { width:100%; height:100%; background:var(--ground); color:var(--ink); font-family:"Inter",sans-serif; overflow-x:hidden; overflow-y:auto; -webkit-font-smoothing:antialiased; }
 button { font:inherit; color:inherit; cursor:pointer; }
@@ -31,7 +31,7 @@ body { height:auto; min-height:100%; overflow:visible; }   /* the page (html) sc
 .tab.on { border-color:var(--wifi); color:var(--wifi); }
 .btn { padding:12px 20px; border-radius:12px; background:#151a2c; border:1px solid var(--line); font-size:20px; }
 .btn.rec { border-color:var(--test); color:var(--test); }
-.btn.done { border-color:rgba(56,225,255,.4); }
+.btn.done { border-color:rgba(56, 255, 255, 0.4); }
 .btn small { font-family:"JetBrains Mono"; font-size:15px; color:var(--ink-3); margin-left:8px; }
 #spots { display:flex; gap:10px; overflow-x:auto; flex:1; padding-bottom:4px; }
 #hint { font-size:19px; color:var(--ink-2); }
@@ -68,7 +68,7 @@ const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAl
 // Geometry comes from config.yaml (room: width_m, length_m, optional plan). Everything works in
 // metres: X across the room, Y along it. Points are stored as plan pixels {u, v}; without a plan
 // image the "plan" is a virtual 100 px/m grid. The long side runs left-right on screen.
-const HEX = { red: "#ff5a5a", green: "#4ade80", blue: "#5b8cff", yellow: "#f5d547", magenta: "#e879f9", cyan: "#38e1ff", white: "#eef1f8" };
+const HEX = { red: "#ff5a5a", green: "#4ade80", blue: "#5b8cff", yellow: "#f5d547", magenta: "#e879f9", cyan: "#BE65E6", white: "#eef1f8" };
 let NODE_COLOURS = {};
 let U0 = 0, V0 = 0, PXM_U = 100, PXM_V = 100, ROOM = { width_m: 4, length_m: 6 }, PLAN = null;
 const toM = p => ({ X: (p.u - U0) / PXM_U, Y: (p.v - V0) / PXM_V });

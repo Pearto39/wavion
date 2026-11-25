@@ -7,11 +7,12 @@
 <style>
 /* Same visual system as the main app: cyan = WiFi, amber = warning/stale, grey = neutral.
    Stage authored at 1920x1080 and scaled to the window. */
-@font-face { font-family: "Inter"; src: url(assets/fonts/inter-500.woff2) format("woff2"); font-weight: 500; }
-@font-face { font-family: "Inter"; src: url(assets/fonts/inter-700.woff2) format("woff2"); font-weight: 700; }
-@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/jbmono-400.woff2) format("woff2"); font-weight: 400; }
-@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/jbmono-600.woff2) format("woff2"); font-weight: 600; }
-:root { --ground:#0b0e19; --panel:rgba(18,23,40,.78); --line:rgba(160,175,210,.16); --ink:#eef1f8; --ink-2:#9aa3b8; --ink-3:#5d6680; --wifi:#38e1ff; --test:#ffb547; }
+@font-face { font-family: "Inter"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 500; }
+@font-face { font-family: "Inter"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 700; }
+@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 400; }
+@font-face { font-family: "JetBrains Mono"; src: url(assets/fonts/font.woff2) format("woff2"); font-weight: 600; }
+
+:root { --ground:#0b0e19; --panel:rgba(18,23,40,.78); --line:rgba(160,175,210,.16); --ink:#eef1f8; --ink-2:#9aa3b8; --ink-3:#5d6680; --wifi:#BE65E6; --test:#a83167; }
 * { box-sizing:border-box; margin:0; padding:0; }
 html,body { width:100%; height:100%; background:var(--ground); color:var(--ink); font-family:"Inter",sans-serif; overflow-x:hidden; overflow-y:auto; -webkit-font-smoothing:antialiased; }
 /* fit the window width; if the window is shorter than the layout, the page scrolls */
@@ -55,12 +56,12 @@ body { height:auto; min-height:100%; overflow:visible; }   /* the page (html) sc
     <canvas id="room-chart"></canvas>
   </div>
 </div></div>
-<div id="hint"><a href="/room.html" style="color:#9aa3b8">room map</a> · <a href="/movement.html" style="color:#9aa3b8">movement</a> · V: raw / change view · F: fullscreen</div>
+<div id="hint"><a href="/room.html" style="color:#9aa3b8">room map</a> · <a href="/movement.html" style="color:#9aa3b8">movement</a> · <a href="/profiles.html" style="color:#9aa3b8">profiles</a> · V: raw / change view · F: fullscreen</div>
 <script>
 "use strict";
 const $ = s => document.querySelector(s);
 // board colours come from config.yaml (they match each board's LED)
-const HEX = { red: "#ff5a5a", green: "#4ade80", blue: "#5b8cff", yellow: "#f5d547", magenta: "#e879f9", cyan: "#38e1ff", white: "#eef1f8" };
+const HEX = { red: "#ff5a5a", green: "#4ade80", blue: "#5b8cff", yellow: "#f5d547", magenta: "#e879f9", cyan: "#BE65E6", white: "#eef1f8" };
 const NODE_COLOURS = {};
 fetch("/api/config").then(r => r.json()).then(c => c.boards.forEach(b => { NODE_COLOURS[b.id] = [HEX[b.colour] || HEX.white, b.colour]; }));
 const N_SC = 52, WIN = 500, HEAT_W = 486, HEAT_H = 300;
@@ -108,7 +109,7 @@ function drawRoom() {
   const c = $("#room-chart"), ctx = c.getContext("2d"), W = c.cssW, H = c.cssH; ctx.clearRect(0, 0, W, H);
   const mx = Math.max(0.15, ...roomHist);
   ctx.strokeStyle = "rgba(160,175,210,.16)"; ctx.beginPath(); ctx.moveTo(0, H - 1); ctx.lineTo(W, H - 1); ctx.stroke();
-  ctx.strokeStyle = "#38e1ff"; ctx.lineWidth = 3; ctx.beginPath();
+  ctx.strokeStyle = "#BE65E6"; ctx.lineWidth = 3; ctx.beginPath();
   roomHist.forEach((v, i) => { const x = W - (roomHist.length - 1 - i) * (W / 449), y = H - 4 - (v / mx) * (H - 12); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
   ctx.stroke();
 }
