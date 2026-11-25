@@ -33,15 +33,31 @@ def flash(dev, c, app_only):
 
 
 def provision(dev, c, node_id):
-    r = subprocess.run([sys.executable, os.path.join(PROJ, "provision.py"), "--port", dev,
-                        "--ssid", c["wifi"]["ssid"], "--password-file", c["wifi"]["password_file"],
-                        "--target-ip", c["host"]["ip"], "--target-port", str(c["host"]["udp_port"]), "--node-id", str(node_id)],
-                       capture_output=True, text=True, cwd=PROJ)
-    for f in ("nvs_provision.bin", "nvs_config.csv"):   # don't leave the WiFi password lying around
-        try: os.remove(os.path.join(PROJ, f))
-        except FileNotFoundError: pass
-    return r.returncode == 0 and "Hash of data verified" in r.stdout
+    password_path = os.path.expanduser(c["wifi"]["password_file"])
+    with open(password_path, encoding="utf-8") as f:
+        password = f.read().strip()
 
+    r = subprocess.run(
+        [sys.executable, os.path.join(PROJ, "provision.py"),
+         "--port", dev,
+         "--ssid", c["wifi"]["ssid"],
+         "--password", password,
+         "--target-ip", c["host"]["ip"],
+         "--target-port", str(c["host"]["udp_port"]),
+         "--node-id", str(node_id)],
+        capture_output=True, text=True, cwd=PROJ
+    )
+
+    for f in ("nvs_provision.bin", "nvs_config.csv"):
+        try:
+            os.remove(os.path.join(PROJ, f))
+        except FileNotFoundError:
+            pass
+
+    if r.returncode != 0:
+        print(f"Provisioning error on {dev}:\n{r.stderr}\n{r.stdout}")
+
+    return r.returncode == 0 and "Hash of data verified" in r.stdout
 
 def boot_check(dev, secs=12):
     s = serial.Serial(dev, 115200, timeout=0.2); s.dtr = False; s.rts = True; time.sleep(0.1); s.rts = False
