@@ -6,7 +6,9 @@ Downloads Google MediaPipe Tasks Vision 0.10.14 (Apache-2.0) and the pose_landma
 into kit/web/vendor/mediapipe/ (~28 MB), so the movement page runs fully offline afterwards.
 """
 import os, subprocess, sys, urllib.request
-
+os.mkdir("data")
+os.mkdir("b")
+os.mkdir("c")
 ROOT = os.path.dirname(os.path.abspath(__file__))
 VENDOR = os.path.join(ROOT, "kit", "web", "vendor", "mediapipe")
 CDN = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
