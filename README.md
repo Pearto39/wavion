@@ -1,7 +1,7 @@
 # Wavion
 
 
-Teach three $10 ESP32-S3 boards to recognise what you're doing — sitting, squatting, spinning,
+Teach three ₹800 ESP32-S3 boards to recognise what you're doing — sitting, squatting, spinning,
 walking, jumping, standing, or nobody home — from your WiFi alone. Your webcam is the teacher
 while you train; then you cover it and the WiFi keeps going.
 
