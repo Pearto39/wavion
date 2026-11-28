@@ -42,7 +42,7 @@ you retrain. See [docs/how-it-works.md](docs/how-it-works.md) for why.
 ## Setup
 
 ```bash
-git clone <this repo> && cd wifi-sensing-kit
+git clone <this repo> && cd wavion
 python3 -m venv .venv && .venv/bin/python install.py      # Python packages + pose model (~28 MB)
 cp config.example.yaml config.yaml                        # then edit it
 ```
