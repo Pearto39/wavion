@@ -1,4 +1,4 @@
-# wifi-sensing-kit
+# Wavion
 
 ![Camera covered — the WiFi alone guesses sitting, walking and squatting; the room camera in the corner is only there as proof](docs/demo.gif)
 
